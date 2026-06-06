@@ -1,7 +1,21 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  devIndicators: false,
+  serverExternalPackages: [
+    "langchain",
+    "@langchain/core",
+    "@langchain/openai",
+    "@langchain/community",
+    "@langchain/textsplitters",
+  ],
+  async rewrites() {
+    if (process.env.NODE_ENV !== "development") return [];
+    return [
+      { source: "/api/vectors", destination: "http://localhost:8001" },
+      { source: "/api/public/vectors", destination: "http://localhost:8001" },
+    ];
+  },
 };
 
 export default nextConfig;

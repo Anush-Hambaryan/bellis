@@ -1,0 +1,17 @@
+[project]
+name = "ui-experiments"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "chromadb",
+    "numpy",
+    "python-dotenv",
+    "scikit-learn",
+]
+
+[tool.uv]
+required-environments = [
+    "sys_platform == 'darwin' and platform_machine == 'x86_64'",
+]
