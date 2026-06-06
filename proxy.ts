@@ -6,7 +6,7 @@ const isPublicRoute = createRouteMatcher([
   "/sign-up(.*)",
   "/api/langfuse/flashcard-quality",
   "/api/langfuse/user-thumbs",
-  "/api/public/vectors",
+  "/api/vectors",
 ]);
 
 export const proxy = clerkMiddleware(async (auth, request) => {

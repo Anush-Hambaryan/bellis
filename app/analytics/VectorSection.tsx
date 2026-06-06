@@ -93,7 +93,7 @@ export function VectorSection({ userEmail, allUsers = false, explainClusters = f
     }
 
     const url = allUsers
-      ? "/api/public/vectors?all=true"
+      ? "/api/vectors?all=true"
       : `/api/vectors?userEmail=${encodeURIComponent(userEmail ?? "")}`;
 
     fetch(url)

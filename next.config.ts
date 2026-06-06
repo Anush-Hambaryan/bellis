@@ -11,10 +11,12 @@ const nextConfig: NextConfig = {
   ],
   async rewrites() {
     if (process.env.NODE_ENV !== "development") return [];
-    return [
-      { source: "/api/vectors", destination: "http://localhost:8001" },
-      { source: "/api/public/vectors", destination: "http://localhost:8001" },
-    ];
+
+    return {
+      beforeFiles: [
+        { source: "/api/vectors", destination: "http://localhost:8001" },
+      ],
+    };
   },
 };
 
