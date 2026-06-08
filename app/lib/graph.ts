@@ -1,6 +1,6 @@
 import { StateGraph, Annotation, START, END, MemorySaver, interrupt } from "@langchain/langgraph";
 import { ChatOpenAI } from "@langchain/openai";
-import { initChatModel } from "langchain/chat_models/universal";
+import { ChatAnthropic } from "@langchain/anthropic";
 import { SystemMessage, HumanMessage } from "@langchain/core/messages";
 import { z } from "zod";
 import { dictionaryLookup, type DictEntry } from "@/app/api/tools/dictionaryLookup";
@@ -113,6 +113,7 @@ function mapOpenAIReasoningEffort(effort: FlashcardWriterReasoningEffort) {
 }
 
 function mapAnthropicReasoningEffort(effort: FlashcardWriterReasoningEffort) {
+  if (effort === "none") return null;
   return effort === "minimal" ? "low" : effort;
 }
 
@@ -121,25 +122,24 @@ async function createFlashcardWriterModel(state: S) {
   const provider = state.flashcardWriterProvider ?? DEFAULT_FLASHCARD_WRITER_PROVIDER;
   const reasoning = state.flashcardWriterReasoning ?? DEFAULT_FLASHCARD_WRITER_REASONING;
 
-  const providerConfig =
-    provider === "anthropic"
-      ? {
-          modelProvider: "anthropic",
-          disableStreaming: true,
-          outputConfig: {
-            effort: mapAnthropicReasoningEffort(reasoning.effort),
-          },
-          thinking: { type: "adaptive" },
-        }
-      : {
-          modelProvider: "openai",
-          disableStreaming: true,
-          reasoning: {
-            effort: mapOpenAIReasoningEffort(reasoning.effort),
-          },
-        };
+  if (provider === "anthropic") {
+    return new ChatAnthropic({
+      model,
+      disableStreaming: true,
+      outputConfig: {
+        effort: mapAnthropicReasoningEffort(reasoning.effort),
+      },
+      thinking: { type: "adaptive" as const },
+    });
+  }
 
-  return initChatModel(model, providerConfig);
+  return new ChatOpenAI({
+    model,
+    disableStreaming: true,
+    reasoning: {
+      effort: mapOpenAIReasoningEffort(reasoning.effort),
+    },
+  });
 }
 
 // ── Nodes ─────────────────────────────────────────────────────────────────────
