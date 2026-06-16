@@ -75,6 +75,10 @@ function isMode(value: string | null): value is Mode {
   return value === "default" || value === "sparkle" || value === "flower" || value === "cloud";
 }
 
+function capitalizeName(name: string) {
+  return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
 interface AppShellProps {
   children: ReactNode;
   lockScroll?: boolean;
@@ -146,10 +150,12 @@ export function AppShell({ children, lockScroll = false }: AppShellProps) {
   }
 
   const firstName =
-    user.firstName ||
-    user.fullName?.split(" ")[0] ||
-    user.primaryEmailAddress?.emailAddress.split("@")[0] ||
-    "there";
+    capitalizeName(
+      user.firstName ||
+      user.fullName?.split(" ")[0] ||
+      user.primaryEmailAddress?.emailAddress.split("@")[0] ||
+      "there"
+    );
 
   return (
     <div className="flex h-screen overflow-hidden bg-page font-sans">

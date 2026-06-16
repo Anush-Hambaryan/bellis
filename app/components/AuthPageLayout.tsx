@@ -4,8 +4,8 @@ import Link from "next/link";
 import { ReactNode, useState } from "react";
 import { BellisMark } from "./BellisMark";
 
-const DEMO_EMAIL = "alex@lexica.app";
-const DEMO_PASSWORD = "alex$1000";
+const DEMO_EMAIL = "alex@bellis.xyz";
+const DEMO_PASSWORD = "aleX!2026";
 
 interface AuthPageLayoutProps {
   children: ReactNode;

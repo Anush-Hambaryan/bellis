@@ -30,12 +30,12 @@ export function FlashcardFront({
       )}
 
       {/* Hero image */}
-      <div className="flex h-[48%] min-h-[170px] max-h-[340px] w-full shrink-0 items-center justify-center overflow-hidden rounded-[18px] bg-content sm:h-[50%] sm:min-h-[190px] sm:rounded-[22px] lg:h-[52%] max-[700px]:h-[42%] max-[700px]:min-h-[140px] max-[700px]:max-h-[240px]">
+      <div className="flex h-[48%] min-h-[170px] max-h-[340px] w-full shrink-0 items-center justify-center overflow-hidden rounded-[18px] bg-white sm:h-[50%] sm:min-h-[190px] sm:rounded-[22px] lg:h-[52%] max-[700px]:h-[42%] max-[700px]:min-h-[140px] max-[700px]:max-h-[240px]">
         {word.heroImageUrl ? (
           <img
             src={word.heroImageUrl}
             alt={word.word}
-            className="block h-full w-full object-cover"
+            className="block h-full w-full object-contain"
           />
         ) : (
           <>
