@@ -133,8 +133,11 @@ export function VectorSection({ userEmail, allUsers = false, explainClusters = f
       {!allUsers && !userEmail ? (
         <EmptyState />
       ) : loading ? (
-        <div className="flex h-[420px] items-center justify-center">
+        <div className="flex h-[420px] flex-col items-center justify-center gap-3">
           <div className="h-6 w-6 animate-spin rounded-full border-2 border-accent-soft border-t-accent" />
+          <p className="m-0 text-center text-xs text-text-light">
+            Initial load may take several seconds due to serverless cold starts.
+          </p>
         </div>
       ) : data?.error ? (
         <EmptyState message={data.error} />
